@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<h1>Post</h1>
+<h1>All Docs</h1>
 
 <ul>
 {% for post in object_list %}
@@ -12,6 +12,7 @@
     - 
     <small>
         <a href="{% url 'update_post' post.pk %}">(Edit)</a>
+        <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
     </small>
     <br>
         {{post.body}}</li>
