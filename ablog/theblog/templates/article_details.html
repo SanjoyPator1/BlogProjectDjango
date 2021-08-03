@@ -6,7 +6,7 @@
 {% block content %}
     <h1>{{ post.title }}</h1>
     <small
-    >By: {{ post.author}}
+    >By: {{ post.author}} - {{post.post_date}} - 
     <a href="{% url 'update_post' post.pk %}">(Edit)</a>
     <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
     </small><br/>

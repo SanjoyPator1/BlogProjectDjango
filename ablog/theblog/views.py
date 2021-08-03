@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
-    ordering=['-id']
+    ordering = ['-post_date']
 
 
 class ArticleDetailView(DetailView):
@@ -22,14 +22,16 @@ class ArticleDetailView(DetailView):
 
 class AddPostView(CreateView):
     model = Post
-    form_class=PostForm
+    form_class = PostForm
     template_name = 'add_post.html'
+
 
 class UpdatePostView(UpdateView):
     model = Post
     template_name = 'update_post.html'
-    form_class=EditForm
+    form_class = EditForm
     #fields = ['title', 'title_tag', 'body']
+
 
 class DeletePostView(DeleteView):
     model = Post
