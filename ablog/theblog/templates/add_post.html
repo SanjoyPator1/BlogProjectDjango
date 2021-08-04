@@ -6,21 +6,26 @@
 
 {% if user.is_authenticated %}
 
-<h1>Add Docs post</h1>
-<br>
-<div class = "form-group">
-    <form method="POST">
-        {% csrf_token %}
-    
-        {{ form.as_p }}
-        <button class="btn btn-secondary">Post</button>
-    
-    </form>
-</div>
+    <h1>Add Docs post</h1>
+    <br>
+    <div class = "form-group">
+        <form method="POST">
+            {% csrf_token %}
+        
+            {{ form.as_p }}
+            <button class="btn btn-secondary">Post</button>
+        
+        </form>
+    </div>
+
+    <script>
+        var name = "{{ user.id }}";
+        document.getElementById("elder").value=name;
+    </script>
 
 {% else %}
-<h1>You are not allowed here</h1><br>
-<h3>Please go back to home page</h3>
+    <h1>You are not allowed here</h1><br>
+    <h3>Please go back to home page</h3>
 {% endif %}
 
 
