@@ -1,12 +1,31 @@
-from django.shortcuts import render
+from functools import total_ordering
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Category, Post
 from .forms import PostForm, EditForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 # def home(request):
 #     return render(request,'home.html', {})
+
+
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    # print("user added to likedList")
+
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+        # print("disliked now - LikeView")
+    else:
+        post.likes.add(request.user)
+        liked = True
+        # print("liked now - LikeView")
+
+    return HttpResponseRedirect(reverse('article-detail', args=[str(pk)]))
 
 
 class HomeView(ListView):
@@ -27,8 +46,20 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         cat_menu = Category.objects.all()
-        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context = super(ArticleDetailView, self).get_context_data(
+            *args, **kwargs)
+
+        stuff = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+            # print("liked now - ArticleDetailsView")
+
         context["cat_menu"] = cat_menu
+        context["total_likes"] = total_likes
+        context["liked"] = liked
         return context
 
 
@@ -48,6 +79,7 @@ class AddCategoryView(CreateView):
 def CategoryView(request, cats):
     category_posts = Post.objects.filter(category=cats.replace('-', ' '))
     return render(request, 'categories.html', {'cats': cats.title().replace('-', ' '), 'category_posts': category_posts})
+
 
 def CategoryListView(request):
     cat_menu_list = Category.objects.all()
