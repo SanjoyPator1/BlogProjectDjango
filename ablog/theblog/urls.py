@@ -1,6 +1,7 @@
 
+from theblog.models import Category
 from django.urls import path
-from .views import HomeView, ArticleDetailView, AddPostView,UpdatePostView, DeletePostView,AddCategoryView
+from .views import HomeView, ArticleDetailView, AddPostView,UpdatePostView, DeletePostView,AddCategoryView, CategoryView, CategoryListView
 
 
 urlpatterns = [
@@ -10,4 +11,6 @@ urlpatterns = [
     path('add_category/', AddCategoryView.as_view(), name='add_category'),
     path('article/edit/<int:pk>', UpdatePostView.as_view(), name='update_post'),
     path('article/<int:pk>/remove', DeletePostView.as_view(), name='delete_post'),
+    path('category/<str:cats>/', CategoryView, name='category'),
+    path('category-list/', CategoryListView, name='category-list'),
 ]
