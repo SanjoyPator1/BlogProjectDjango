@@ -1,11 +1,12 @@
 
 from theblog.models import Category
 from django.urls import path
-from .views import HomeView, ArticleDetailView, AddPostView,UpdatePostView, DeletePostView,AddCategoryView, CategoryView, CategoryListView, LikeView
+from .views import HomeView, ArticleDetailView, AddPostView,UpdatePostView, DeletePostView,AddCategoryView, CategoryView, CategoryListView, LikeView,ALLDocsView
 
 
 urlpatterns = [
     path('', HomeView.as_view(), name="home"),
+    path('all_docs', ALLDocsView.as_view(), name="all_docs"),
     path('article/<int:pk>', ArticleDetailView.as_view(), name="article-detail"),
     path('add_post/', AddPostView.as_view(), name='add_post'),
     path('add_category/', AddCategoryView.as_view(), name='add_category'),
