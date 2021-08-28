@@ -7,6 +7,7 @@
 
 <ul></ul>
 {% for post in category_posts %}
+{% if  post.privacy == post.checkpublic %}
     <li><a href="{% url 'article-detail' post.pk %}">{{post.title}}
     </a> - {{post.author}}
     - {{post.post_date}} 
@@ -17,8 +18,8 @@
         {% endif %}
     </small>
     <br>
-        {{post.body | slice:":200"}}</li>
-
+        {{post.snippet}}</li>
+{% endif %}
 {% endfor %}
 </ul>
 

@@ -8,6 +8,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
@@ -34,10 +35,10 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     # header_image = models.ImageField(
     #     null=True, blank=True, upload_to="images/")
-    title_tag = models.CharField(max_length=255)
+    # title_tag = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    body = RichTextUploadingField(blank=True, null=True)
+    body = models.TextField(blank=True, null=True)
 
     # body = models.TextField()
     post_date = models.DateField(auto_now_add=True)
@@ -58,3 +59,21 @@ class Post(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+
+
+#summernote rty
+
+class Post1(models.Model):
+    title = models.CharField(max_length=255, help_text="Title of blog posting")
+    body = models.TextField(blank=True, null=True)
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+    desc = models.TextField(blank=True, null=True)
+
+
+class Book(models.Model):
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    desc = models.TextField(blank=True, null=True)

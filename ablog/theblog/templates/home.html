@@ -13,7 +13,8 @@
     </a> - 
     <a href="{% url 'category' post.category|slugify %}">{{post.category}}</a>
      - {{post.author}}
-    - {{post.post_date}} 
+    - {{post.post_date}}
+    - {{post.privacy}} 
     <small>
         
                 - <a href="{% url 'update_post' post.pk %}">(Edit)</a>
